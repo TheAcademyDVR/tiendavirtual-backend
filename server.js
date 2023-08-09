@@ -33,9 +33,10 @@ users(app);
 
 // FIN LLAMADO DE LAS RUTAS
 
-server.listen(3000, '192.168.1.10' || 'localhost', function(){
+server.listen(port, '192.168.1.20' || 'localhost', function(){
     console.log('Ejecutando la aplicacion '+process.pid+' Iniciado en el puerto '+port)
 });
+
 
 app.get('/', (req, res)=>{
     res.send('Ruta raiz del backend')
