@@ -11,3 +11,48 @@ create database tienda_virtual;
         created_at timestamp(0) NOT NULL, 
         updated_at timestamp(0) NOT NULL
     )
+
+        create table role(
+        id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        name varchar(100) NOT NULL UNIQUE,
+        image varchar(255) NULL,
+        route varchar(255) NOT NULL,
+        created_at timestamp(0) NOT NULL, 
+        updated_at timestamp(0) NOT NULL
+    )
+
+INSERT INTO `tienda_virtual`.`roles`
+(`name`,`route`,`created_at`,`updated_at`)VALUES
+('ADMINISTRADOR','/administrator/orders/list','2023-03-27','20-03-28');
+INSERT INTO `tienda_virtual`.`roles`
+(`name`,`route`,`created_at`,`updated_at`)VALUES
+('REPARTIDOR','/delivery/orders/list','2023-03-27','20-03-28');
+INSERT INTO `tienda_virtual`.`roles`
+(`name`,`route`,`created_at`,`updated_at`)VALUES
+('CLIENTE','/client/orders/list','2023-03-27','20-03-28');
+
+   create table user_has_roles(
+        id_user BIGINT NOT NULL,
+        id_rol BIGINT NOT NULL,
+        created_at timestamp(0) NOT NULL, 
+        updated_at timestamp(0) NOT NULL,
+        FOREIGN KEY(id_user) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+        FOREIGN KEY(id_rol) REFERENCES roles(id) ON UPDATE CASCADE ON DELETE CASCADE,
+        PRIMARY KEY(id_user, id_rol)
+    )
+
+
+    SELECT U.id, U.email, U.name, U.lastname, U.image, U.phone, U.password,
+	JSON_ARRAYAGG(
+		JSON_OBJECT(
+			'id', R.id,
+			'name', R.name,
+			'image', R.image,
+			'route', R.route
+        )
+    ) as roles
+FROM users U
+INNER JOIN user_has_roles UHR ON UHR.id_user = U.id
+INNER JOIN roles R ON UHR.id_rol = R.id
+WHERE U.email = 'prueba24@gmail.com'
+group by U.id

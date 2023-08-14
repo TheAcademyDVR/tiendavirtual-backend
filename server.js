@@ -5,6 +5,7 @@ const server = http.createServer(app);
 const logger = require('morgan');
 const cors = require('cors');
 const passport = require('passport');
+const multer = require('multer');
 
 // IMPORTANDO LAS RUTAS 
 
@@ -26,9 +27,13 @@ app.disable('x-powered-by');
 
 app.set('port', port);
 
+const upload = multer({
+    storage: multer.memoryStorage()
+})
+
 // LLAMADO DE LAS RUTAS
 
-users(app);
+users(app, upload);
 
 
 // FIN LLAMADO DE LAS RUTAS
