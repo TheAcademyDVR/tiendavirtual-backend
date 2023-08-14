@@ -94,7 +94,16 @@ User.create = async (user, result) => {
     `;
     connection.query(
         sql,
-        [user.name, user.lastname, user.email, user.phone, user.image, hashPassword, new Date(), new Date()],
+        [
+            user.name,
+            user.lastname,
+            user.email,
+            user.phone,
+            user.image,
+            hashPassword,
+            new Date(),
+            new Date()
+        ],
         (err, res) => {
             if (err) {
                 console.log('Error en usuarios es: ', err);
@@ -106,6 +115,75 @@ User.create = async (user, result) => {
         }
 
 
+    )
+}
+
+
+User.update = async (user, result) => {
+
+    const sql = `
+        UPDATE 
+            users
+        SET 
+            name=?, 
+            lastname=?, 
+            phone=?, 
+            image=?,  
+            updated_at=?
+        WHERE 
+            id=? `;
+    connection.query(
+        sql,
+        [
+            user.name,
+            user.lastname,
+            user.phone,
+            user.image,
+            new Date(),
+            user.id
+        ],
+        (err, res) => {
+            if (err) {
+                console.log('Error en actual al usuario: ', err);
+                result(err, null);
+            } else {
+                console.log('Usuario actualizado: ', user.id);
+                result(null, user.id);
+            }
+        }
+    )
+}
+
+User.updateWithoutImage = async (user, result) => {
+
+    const sql = `
+        UPDATE 
+            users
+        SET 
+            name=?, 
+            lastname=?, 
+            phone=?,  
+            updated_at=?
+        WHERE 
+            id=? `;
+    connection.query(
+        sql,
+        [
+            user.name,
+            user.lastname,
+            user.phone,
+            new Date(),
+            user.id
+        ],
+        (err, res) => {
+            if (err) {
+                console.log('Error en actual al usuario: ', err);
+                result(err, null);
+            } else {
+                console.log('Usuario actualizado: ', user.id);
+                result(null, user.id);
+            }
+        }
     )
 }
 
