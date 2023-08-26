@@ -56,3 +56,13 @@ INNER JOIN user_has_roles UHR ON UHR.id_user = U.id
 INNER JOIN roles R ON UHR.id_rol = R.id
 WHERE U.email = 'prueba24@gmail.com'
 group by U.id
+
+
+CREATE TABLE categories (
+    id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name varchar(100) NOT NULL,
+    description text NOT NULL UNIQUE,
+    image varchar(255) NULL,
+    created_at timestamp(0) NOT NULL, 
+    updated_at timestamp(0) NOT NULL 
+)

@@ -9,7 +9,8 @@ const multer = require('multer');
 
 // IMPORTANDO LAS RUTAS 
 
-const users = require('./routes/user');
+const users = require('./routes/userRoutes');
+const categories = require('./routes/categoryRoutes');
 
 // FIN DE IMPORTACION DE RUTAS
 const port = process.env.PORT || 3000;
@@ -34,6 +35,7 @@ const upload = multer({
 // LLAMADO DE LAS RUTAS
 
 users(app, upload);
+categories(app, upload);
 
 
 // FIN LLAMADO DE LAS RUTAS

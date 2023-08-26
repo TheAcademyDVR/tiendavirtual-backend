@@ -40,7 +40,7 @@ module.exports = {
                     email: myUser.email,
                     phone: myUser.phone,
                     image: myUser.image,
-                    session_token: `JWS ${token}`,
+                    session_token: `JWT ${token}`,
                     roles: myUser.roles
                 }
 
@@ -108,7 +108,7 @@ module.exports = {
 
             user.id = `${data}`;
             const token = jwt.sign({ id: user.id, email: user.email }, keys.secretOrKey, {});
-            user.session_token = `JWS ${token}`
+            user.session_token = `JWT ${token}`
 
             Rol.create(user.id, 3, (err, data) => {
                 if (err) {
