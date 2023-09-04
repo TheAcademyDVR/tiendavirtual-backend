@@ -72,7 +72,7 @@ module.exports = {
             return res.status(201).json({
                 success: true,
                 message: 'Registro exitoso',
-                data: data //Retorna el id del registro
+                data: user //Retorna el id del registro
             });
         });
     },
